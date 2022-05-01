@@ -14,7 +14,15 @@
   "applied_templates": [
     {
       "name": "copier-typescript-npm-sphinx",
-      "data": {},
+      "data": {
+        "package_name": "@terminhtml/bootstrap",
+        "repo_name": "terminhtml-bootstrap",
+        "full_name": "TerminHTML Bootstrap",
+        "short_description": "Automatically initialize TerminHTML terminals when elements come into view",
+        "main_branch_name": "main",
+        "author": "Nick DeRobertis",
+        "repo_username": "nickderobertis"
+      },
       "version": "deb22d05b4194a4e9d86ca955188febcc6d39b1c",
       "add_mode": "local",
       "root": "."
