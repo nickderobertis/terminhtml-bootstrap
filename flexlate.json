@@ -11,5 +11,13 @@
       "render_relative_root_in_template": "output"
     }
   ],
-  "applied_templates": []
+  "applied_templates": [
+    {
+      "name": "copier-typescript-npm-sphinx",
+      "data": {},
+      "version": "deb22d05b4194a4e9d86ca955188febcc6d39b1c",
+      "add_mode": "local",
+      "root": "."
+    }
+  ]
 }
