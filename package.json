@@ -45,6 +45,9 @@
     "url": "https://github.com/nickderobertis/terminhtml-bootstrap/issues"
   },
   "homepage": "https://github.com/nickderobertis/terminhtml-bootstrap#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "terminhtml": "1.0.0-alpha.4"
   },
