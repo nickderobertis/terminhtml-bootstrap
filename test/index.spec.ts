@@ -1,7 +1,7 @@
+import { describe, it, expect } from 'vitest';
+
 describe('index', () => {
-  describe('terminhtml-bootstrap', () => {
-    it('noop', () => {
-      expect('hello').toMatch('hello');
-    });
+  it('noop', () => {
+    expect('hello').toMatch('hello');
   });
 });
