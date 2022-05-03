@@ -14,6 +14,12 @@ const defaultOptions: BootstrapOptions = {
   class: defaultClass,
 };
 
+export function bootstrapTerminHTMLsOnWindowLoad(
+  options?: Partial<BootstrapOptions>
+): void {
+  window.addEventListener('load', () => bootstrapTerminHTMLs(options));
+}
+
 export function bootstrapTerminHTMLs(
   options?: Partial<BootstrapOptions>
 ): BootstrapResult {
