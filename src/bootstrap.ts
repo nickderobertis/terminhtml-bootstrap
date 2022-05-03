@@ -21,6 +21,10 @@ export function bootstrapTerminHTMLs(
 
   const opts: BootstrapOptions = { ...defaultOptions, ...options };
   const className = opts.class;
+  return createTerminHTMLs(className);
+}
+
+function createTerminHTMLs(className: string): BootstrapResult {
   const elements = document.querySelectorAll<HTMLElement>(`.${className}`);
   const terminHTMLs: TerminHTML[] = [];
   for (const element of elements) {
