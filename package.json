@@ -2,15 +2,15 @@
   "name": "@terminhtml/bootstrap",
   "version": "0.0.0-development",
   "description": "Automatically initialize TerminHTML terminals when elements come into view",
-  "main": "./dist/@terminhtml/bootstrap.umd.js",
-  "module": "./dist/@terminhtml/bootstrap.es.js",
+  "main": "./dist/@terminhtml-bootstrap.umd.js",
+  "module": "./dist/@terminhtml-bootstrap.es.js",
   "files": [
     "dist/**/*"
   ],
   "exports": {
     ".": {
-      "import": "./dist/@terminhtml/bootstrap.es.js",
-      "require": "./dist/@terminhtml/bootstrap.umd.js"
+      "import": "./dist/@terminhtml-bootstrap.es.js",
+      "require": "./dist/@terminhtml-bootstrap.umd.js"
     }
   },
   "scripts": {
