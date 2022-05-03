@@ -7,7 +7,7 @@ module.exports = defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: '@terminhtml/bootstrap',
-      fileName: (format) => `@terminhtml/bootstrap.${format}.js`
+      fileName: (format) => `@terminhtml-bootstrap.${format}.js`
     },
     outDir: path.resolve(__dirname, './dist'),
     rollupOptions: {

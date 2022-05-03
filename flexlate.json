@@ -4,7 +4,7 @@
       "name": "copier-typescript-npm-sphinx",
       "path": "https://github.com/nickderobertis/copier-typescript-npm-sphinx",
       "type": "copier",
-      "version": "deda9fedd34f664f458b7ae15bfc53335dfa10b9",
+      "version": "e2650a962b5e855b4939b230f0c737862df4cbcd",
       "git_url": "https://github.com/nickderobertis/copier-typescript-npm-sphinx",
       "target_version": null,
       "render_relative_root_in_output": ".",
@@ -21,9 +21,10 @@
         "short_description": "Automatically initialize TerminHTML terminals when elements come into view",
         "main_branch_name": "main",
         "author": "Nick DeRobertis",
-        "repo_username": "nickderobertis"
+        "repo_username": "nickderobertis",
+        "package_filename": "@terminhtml-bootstrap"
       },
-      "version": "deda9fedd34f664f458b7ae15bfc53335dfa10b9",
+      "version": "e2650a962b5e855b4939b230f0c737862df4cbcd",
       "add_mode": "local",
       "root": "."
     }
