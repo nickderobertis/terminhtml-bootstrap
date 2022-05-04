@@ -16,13 +16,13 @@ specifiers:
   lint-staged: ^10.5.4
   prettier: ^2.2.1
   semantic-release: ^19.0.2
-  terminhtml: 1.0.0-alpha.4
+  terminhtml: 1.0.0-alpha.7
   typescript: ^4.2.4
   vite: ^2.9.6
   vitest: ^0.10.0
 
 dependencies:
-  terminhtml: 1.0.0-alpha.4
+  terminhtml: 1.0.0-alpha.7
 
 devDependencies:
   '@commitlint/config-conventional': 16.2.4
@@ -3553,8 +3553,8 @@ packages:
       unique-string: 2.0.0
     dev: true
 
-  /terminhtml/1.0.0-alpha.4:
-    resolution: {integrity: sha512-O0C89ekK9vPtoGUT6ACvop/D49W5W38op+3wTsaD+Ul2pLMkzB1sESenOq7sx1BgjNXcZrf+sgYDWlmQl/x0RA==}
+  /terminhtml/1.0.0-alpha.7:
+    resolution: {integrity: sha512-kWmqm3HKyXdTDCGlXHVmBwwSW4vjnHoOn4RrJ44voySs8B57LqiEKBieMXvu2ncH9EOShr8xfup/Mf9UpSkFKA==}
     engines: {node: '>=12.0'}
     dev: false
 

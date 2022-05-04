@@ -58,7 +58,7 @@
     "access": "public"
   },
   "dependencies": {
-    "terminhtml": "1.0.0-alpha.4"
+    "terminhtml": "1.0.0-alpha.7"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^16.2.4",
