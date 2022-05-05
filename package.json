@@ -4,6 +4,7 @@
   "description": "Automatically initialize TerminHTML terminals when elements come into view",
   "main": "./dist/@terminhtml-bootstrap.umd.js",
   "module": "./dist/@terminhtml-bootstrap.es.js",
+  "types": "./dist/src/index.d.ts",
   "files": [
     "dist/**/*"
   ],
