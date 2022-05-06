@@ -59,7 +59,7 @@
     "access": "public"
   },
   "dependencies": {
-    "terminhtml": "1.0.0-alpha.13"
+    "terminhtml": "1.0.0-alpha.14"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^16.2.4",
