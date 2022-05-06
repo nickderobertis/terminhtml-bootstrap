@@ -67,7 +67,7 @@ function loadTerminHTMLCSS() {
     link.type = "text/css";
     // TODO: update url to be main terminhtml once it is out of alpha
     link.href =
-      "https://unpkg.com/terminhtml@1.0.0-alpha.14/dist/src/termynal.css";
+      "https://unpkg.com/terminhtml@1.0.0-alpha.16/dist/src/termynal.css";
     link.media = "all";
     head.appendChild(link);
   }
