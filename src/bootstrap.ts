@@ -52,7 +52,7 @@ function createTerminHTMLs(className: string): BootstrapResult {
   window.addEventListener("scroll", loadVisibleTermynals);
   const stopListener = () =>
     window.removeEventListener("scroll", loadVisibleTermynals);
-  loadVisibleTermynals();
+  setTimeout(loadVisibleTermynals, 50);
   return { stopListener, terminHTMLs };
 }
 
