@@ -21,9 +21,6 @@ specifiers:
   vite: ^2.9.6
   vitest: ^0.10.0
 
-dependencies:
-  terminhtml: 1.0.0
-
 devDependencies:
   '@commitlint/config-conventional': 16.2.4
   '@types/node': 12.20.50
@@ -40,6 +37,7 @@ devDependencies:
   lint-staged: 10.5.4
   prettier: 2.6.2
   semantic-release: 19.0.2
+  terminhtml: 1.0.0
   typescript: 4.6.4
   vite: 2.9.7
   vitest: 0.10.1_c8@7.11.2
@@ -3556,7 +3554,7 @@ packages:
   /terminhtml/1.0.0:
     resolution: {integrity: sha512-HK0a3TAbUsu8VlVN9j7FMAdtzhz07Pg8ms1ZsE0CK/EHhPfzg3r7QzbzzFHudZlQiWplCnDSF/xF5WYygKgj2w==}
     engines: {node: '>=12.0'}
-    dev: false
+    dev: true
 
   /test-exclude/6.0.0:
     resolution: {integrity: sha512-cAGWPIyOHU6zlmg88jwm7VRyXnMN7iV68OGAbYDk/Mh/xC/pzVPlQtY6ngoIH/5/tciuhGfvESU8GrHrcxD56w==}
