@@ -1,4 +1,9 @@
-import TerminHTML from "terminhtml";
+const terminHTMLMajorVersion = 1;
+const terminHTMLUrl = `https://unpkg.com/terminhtml@${terminHTMLMajorVersion}.x/dist/`;
+const terminHTMLJSUrl = `${terminHTMLUrl}terminhtml.es.js`;
+const termynalCSSUrl = `${terminHTMLUrl}src/termynal.css`;
+
+import type { TerminHTML } from "terminhtml";
 
 export type BootstrapOptions = {
   class: string;
@@ -17,24 +22,33 @@ const defaultOptions: BootstrapOptions = {
 export function bootstrapTerminHTMLsOnWindowLoad(
   options?: Partial<BootstrapOptions>
 ): void {
-  window.addEventListener("load", () => bootstrapTerminHTMLs(options));
+  window.addEventListener("load", () => {
+    bootstrapTerminHTMLs(options).catch(console.error);
+  });
 }
 
-export function bootstrapTerminHTMLs(
+export async function bootstrapTerminHTMLs(
   options?: Partial<BootstrapOptions>
-): BootstrapResult {
+): Promise<BootstrapResult> {
   loadTerminHTMLCSS();
 
   const opts: BootstrapOptions = { ...defaultOptions, ...options };
   const className = opts.class;
-  return createTerminHTMLs(className);
+  return await createTerminHTMLs(className);
 }
 
-function createTerminHTMLs(className: string): BootstrapResult {
+async function createTerminHTMLs(className: string): Promise<BootstrapResult> {
+  // Dynamically load the latest major version of terminhtml-js, so that we can
+  // update end users by only updating terminhtml-js.
+  const TerminHTML = await import(
+    /* @vite-ignore */
+    terminHTMLJSUrl
+  );
   const elements = document.querySelectorAll<HTMLElement>(`.${className}`);
   const terminHTMLs: TerminHTML[] = [];
   for (const element of elements) {
-    const terminHTML = new TerminHTML(element);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    const terminHTML: TerminHTML = new TerminHTML.TerminHTML(element);
     terminHTMLs.push(terminHTML);
   }
   let unloadedTerms = [...terminHTMLs];
@@ -65,7 +79,7 @@ function loadTerminHTMLCSS() {
     link.id = cssId;
     link.rel = "stylesheet";
     link.type = "text/css";
-    link.href = "https://unpkg.com/terminhtml@1.x/dist/src/termynal.css";
+    link.href = termynalCSSUrl;
     link.media = "all";
     head.appendChild(link);
   }
