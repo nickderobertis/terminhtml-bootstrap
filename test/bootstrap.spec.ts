@@ -1,8 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { fireEvent, screen } from "@testing-library/dom";
-
-const bootstrapScriptUrl =
-  "https://unpkg.com/@terminhtml/bootstrap@1.x/dist/@terminhtml-bootstrap.umd.js";
+import { bootstrapTerminHTMLs } from "../src/bootstrap";
 
 function createTerminalHTMLBlock(): HTMLPreElement {
   const pre = document.createElement("pre");
@@ -19,14 +17,6 @@ function createTerminalHTMLBlock(): HTMLPreElement {
   return pre;
 }
 
-function createBootstrapScriptTag(): HTMLScriptElement {
-  const script = document.createElement("script");
-  script.src = bootstrapScriptUrl;
-  script.onload = () => console.log("Bootstrap script loaded");
-  document.head.appendChild(script);
-  return script;
-}
-
 async function waitForAnimation() {
   vi.runAllTimers();
   for (let i = 0; i < 100; i++) {
@@ -38,26 +28,19 @@ async function waitForAnimation() {
 }
 
 describe("index", () => {
-  beforeEach(() => {
-    vi.useFakeTimers();
-  });
+  // beforeEach(() => {
+  //   vi.useFakeTimers();
+  // });
 
-  afterEach(() => {
-    vi.useRealTimers();
-  });
+  // afterEach(() => {
+  //   vi.useRealTimers();
+  // });
 
-  it("should do the default bootstrap when imported via script tag", async () => {
+  it("should bootstrap blocks with terminhtml class", async () => {
     const pre = createTerminalHTMLBlock();
-    createBootstrapScriptTag();
-    const script = document.querySelector(
-      "script[src='" + bootstrapScriptUrl + "']"
-    );
-    if (!script) {
-      throw new Error("Bootstrap script tag not found");
-    }
-    // fireEvent.load(script);
-    // await new Promise(resolve => setTimeout(resolve, 4000));
-    await waitForAnimation();
+    await bootstrapTerminHTMLs();
+    await new Promise(resolve => setTimeout(resolve, 4000));
+    // await waitForAnimation();
     screen.debug();
     console.log(document.documentElement.outerHTML);
   });
