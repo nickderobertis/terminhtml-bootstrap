@@ -5,8 +5,12 @@ const termynalCSSUrl = `${terminHTMLUrl}src/termynal.css`;
 
 import type { TerminHTML } from "terminhtml";
 
+type TerminHTMLClass = typeof TerminHTML;
+type TerminHTMLModule = { TerminHTML: TerminHTMLClass };
+
 export type BootstrapOptions = {
-  class: string;
+  className: string;
+  importFromUrl: boolean;
 };
 
 export type BootstrapResult = {
@@ -16,7 +20,8 @@ export type BootstrapResult = {
 
 const defaultClass = "terminhtml";
 const defaultOptions: BootstrapOptions = {
-  class: defaultClass,
+  className: defaultClass,
+  importFromUrl: true,
 };
 
 export function bootstrapTerminHTMLsOnWindowLoad(
@@ -33,22 +38,45 @@ export async function bootstrapTerminHTMLs(
   loadTerminHTMLCSS();
 
   const opts: BootstrapOptions = { ...defaultOptions, ...options };
-  const className = opts.class;
-  return await createTerminHTMLs(className);
+  const { className, importFromUrl } = opts;
+  return await createTerminHTMLs(className, importFromUrl);
 }
 
-async function createTerminHTMLs(className: string): Promise<BootstrapResult> {
+/**
+ * Get the TerminHTML class constructor. If importFromUrl is true, then
+ * dynamically load from the latest major version of terminhtml-js via URL.
+ * If importFromUrl is false, then use the local version in node_modules.
+ */
+function getTerminHTMLClass(importFromUrl = true): Promise<TerminHTMLClass> {
+  if (importFromUrl) {
+    return import(
+      /* @vite-ignore */
+      terminHTMLJSUrl
+    )
+      .then(({ TerminHTML }: TerminHTMLModule) => TerminHTML)
+      .catch(console.error) as Promise<TerminHTMLClass>;
+  } else {
+    return import(
+      /* @vite-ignore */
+      "terminhtml"
+    )
+      .then(({ TerminHTML }: TerminHTMLModule) => TerminHTML)
+      .catch(console.error) as Promise<TerminHTMLClass>;
+  }
+}
+
+async function createTerminHTMLs(
+  className: string,
+  importFromUrl: boolean
+): Promise<BootstrapResult> {
   // Dynamically load the latest major version of terminhtml-js, so that we can
   // update end users by only updating terminhtml-js.
-  const TerminHTML = await import(
-    /* @vite-ignore */
-    terminHTMLJSUrl
-  );
+  const TerminHTML = await getTerminHTMLClass(importFromUrl);
   const elements = document.querySelectorAll<HTMLElement>(`.${className}`);
   const terminHTMLs: TerminHTML[] = [];
   for (const element of elements) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    const terminHTML: TerminHTML = new TerminHTML.TerminHTML(element);
+    const terminHTML: TerminHTML = new TerminHTML(element);
     terminHTMLs.push(terminHTML);
   }
   let unloadedTerms = [...terminHTMLs];
