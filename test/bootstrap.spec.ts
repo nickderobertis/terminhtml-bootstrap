@@ -60,8 +60,15 @@ describe("TerminHTML", () => {
 
   it("initializes the terminal with text", async () => {
     const element = createTerminHTMLBlock();
+    // Ensure it is not bootstrapped on import, only when called
+    vi.runAllTimers();
+    const beforeBootstrapText = "$ echo woo\nwoo";
+    expect(element.textContent).toEqual(beforeBootstrapText);
+
+    // Now do bootstrap, and verify the terminal is loaded
     await bootstrap();
     vi.runAllTimers();
+    expect(element.textContent).not.toEqual(beforeBootstrapText);
     await expectTerminHTMLToInitialize(element);
   });
 });
