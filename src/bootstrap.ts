@@ -24,22 +24,27 @@ const defaultOptions: BootstrapOptions = {
   importFromUrl: true,
 };
 
-export function bootstrapTerminHTMLsOnWindowLoad(
+export async function bootstrapTerminHTMLsOnWindowLoad(
   options?: Partial<BootstrapOptions>
-): void {
+): Promise<void> {
+  const { className, importFromUrl } = getOptions(options);
+  const TerminHTML = await loadTerminHTML(importFromUrl);
   window.addEventListener("load", () => {
-    bootstrapTerminHTMLs(options).catch(console.error);
+    createTerminHTMLs(className, TerminHTML);
   });
 }
 
 export async function bootstrapTerminHTMLs(
   options?: Partial<BootstrapOptions>
 ): Promise<BootstrapResult> {
-  loadTerminHTMLCSS();
+  const { className, importFromUrl } = getOptions(options);
+  const TerminHTML = await loadTerminHTML(importFromUrl);
 
-  const opts: BootstrapOptions = { ...defaultOptions, ...options };
-  const { className, importFromUrl } = opts;
-  return await createTerminHTMLs(className, importFromUrl);
+  return createTerminHTMLs(className, TerminHTML);
+}
+
+function getOptions(options?: Partial<BootstrapOptions>): BootstrapOptions {
+  return { ...defaultOptions, ...options };
 }
 
 /**
@@ -49,6 +54,8 @@ export async function bootstrapTerminHTMLs(
  */
 function getTerminHTMLClass(importFromUrl = true): Promise<TerminHTMLClass> {
   if (importFromUrl) {
+    // Dynamically load the latest major version of terminhtml-js, so that we can
+    // update end users by only updating terminhtml-js.
     return import(
       /* @vite-ignore */
       terminHTMLJSUrl
@@ -65,13 +72,20 @@ function getTerminHTMLClass(importFromUrl = true): Promise<TerminHTMLClass> {
   }
 }
 
-async function createTerminHTMLs(
+async function loadTerminHTML(importFromUrl = true): Promise<TerminHTMLClass> {
+  // Kick off loading of JS async
+  const TerminHTMLPromise = getTerminHTMLClass(importFromUrl);
+  // Kick off loading of CSS async
+  loadTerminHTMLCSS();
+  // Wait for JS to finish
+  const TerminHTML = await TerminHTMLPromise;
+  return TerminHTML;
+}
+
+function createTerminHTMLs(
   className: string,
-  importFromUrl: boolean
-): Promise<BootstrapResult> {
-  // Dynamically load the latest major version of terminhtml-js, so that we can
-  // update end users by only updating terminhtml-js.
-  const TerminHTML = await getTerminHTMLClass(importFromUrl);
+  TerminHTML: TerminHTMLClass
+): BootstrapResult {
   const elements = document.querySelectorAll<HTMLElement>(`.${className}`);
   const terminHTMLs: TerminHTML[] = [];
   for (const element of elements) {
