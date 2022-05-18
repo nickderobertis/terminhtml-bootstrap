@@ -24,13 +24,17 @@ const defaultOptions: BootstrapOptions = {
   importFromUrl: true,
 };
 
-export async function bootstrapTerminHTMLsOnWindowLoad(
+export function bootstrapTerminHTMLsOnWindowLoad(
   options?: Partial<BootstrapOptions>
-): Promise<void> {
+): void {
   const { className, importFromUrl } = getOptions(options);
-  const TerminHTML = await loadTerminHTML(importFromUrl);
-  window.addEventListener("load", () => {
-    createTerminHTMLs(className, TerminHTML);
+  // Kick off loading of JS/CSS async
+  const TerminHTMLPromise = loadTerminHTML(importFromUrl);
+  // Immediately add the event listener, but don't fire bootstrap until JS/CSS is loaded
+  window.addEventListener("DOMContentLoaded", () => {
+    TerminHTMLPromise.then(TerminHTML => {
+      createTerminHTMLs(className, TerminHTML);
+    }).catch(console.error);
   });
 }
 

@@ -1,3 +1,3 @@
-import { bootstrapTerminHTMLsOnWindowLoad } from './bootstrap';
+import { bootstrapTerminHTMLsOnWindowLoad } from "./bootstrap";
 
 bootstrapTerminHTMLsOnWindowLoad();
