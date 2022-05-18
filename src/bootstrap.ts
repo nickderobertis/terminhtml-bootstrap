@@ -31,8 +31,11 @@ export function bootstrapTerminHTMLsOnWindowLoad(
   // Kick off loading of JS/CSS async
   const TerminHTMLPromise = loadTerminHTML(importFromUrl);
   // Immediately add the event listener, but don't fire bootstrap until JS/CSS is loaded
-  window.addEventListener("DOMContentLoaded", () => {
+  console.log("adding event listener");
+  window.addEventListener("load", () => {
+    console.log("called on load");
     TerminHTMLPromise.then(TerminHTML => {
+      console.log("doing bootstrap");
       createTerminHTMLs(className, TerminHTML);
     }).catch(console.error);
   });
