@@ -60,6 +60,7 @@ function getOptions(options?: Partial<BootstrapOptions>): BootstrapOptions {
  * If importFromUrl is false, then use the local version in node_modules.
  */
 function getTerminHTMLClass(importFromUrl = true): Promise<TerminHTMLClass> {
+  console.log("import from url", importFromUrl);
   if (importFromUrl) {
     // Dynamically load the latest major version of terminhtml-js, so that we can
     // update end users by only updating terminhtml-js.
@@ -97,14 +98,17 @@ function createTerminHTMLs(
   const terminHTMLs: TerminHTML[] = [];
   for (const element of elements) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    console.log("creating terminhtml for element", element.outerHTML);
     const terminHTML: TerminHTML = new TerminHTML(element);
     terminHTMLs.push(terminHTML);
   }
   let unloadedTerms = [...terminHTMLs];
 
   function loadVisibleTermynals() {
+    console.log("trying to load terminals");
     unloadedTerms = unloadedTerms.filter(term => {
       if (term.container.getBoundingClientRect().top - innerHeight <= 0) {
+        console.log("init terminal");
         term.init();
         return false;
       }
